@@ -75,12 +75,20 @@ public class Calcolatrice extends JFrame implements ActionListener{
 		JButton bPoint = new JButton(".");
 		JButton bEqual = new JButton("=");
 		JButton bPlus = new JButton("+");
+		JButton bCE = new JButton("CE");
+		JButton bSqrt = new JButton("sqrt");
+		JButton bPow = new JButton("pow");
+		JButton b = new JButton("<>");
 		
 		//Aggiunta pulsanti al pannello pulsanti
 		buttonPanel.add(b7);buttonPanel.add(b8);buttonPanel.add(b9);buttonPanel.add(bDiv);
+		buttonPanel.add(bCE);
 		buttonPanel.add(b4);buttonPanel.add(b5);buttonPanel.add(b6);buttonPanel.add(bMult);
+		buttonPanel.add(bSqrt);
 		buttonPanel.add(b1);buttonPanel.add(b2);buttonPanel.add(b3);buttonPanel.add(bMinus);
+		buttonPanel.add(bPow);
 		buttonPanel.add(b0);buttonPanel.add(bPoint);buttonPanel.add(bEqual);buttonPanel.add(bPlus);
+		buttonPanel.add(b);
 		
 		//Aggiunta listener ai pulsanti
 		b0.addActionListener(this);b1.addActionListener(this);b2.addActionListener(this);
@@ -88,11 +96,13 @@ public class Calcolatrice extends JFrame implements ActionListener{
 		b6.addActionListener(this);b7.addActionListener(this);b8.addActionListener(this);
 		b9.addActionListener(this);bDiv.addActionListener(this);bMult.addActionListener(this);
 		bMinus.addActionListener(this);bPoint.addActionListener(this);bEqual.addActionListener(this);
-		bPlus.addActionListener(this);
+		bPlus.addActionListener(this);bCE.addActionListener(this);bSqrt.addActionListener(this);
+		bPow.addActionListener(this);
 		
 		//Imposta colore bottoni operatori
 		bDiv.setBackground(OPCOLOR);bMult.setBackground(OPCOLOR);bMinus.setBackground(OPCOLOR);
-		bEqual.setBackground(OPCOLOR);bPlus.setBackground(OPCOLOR);
+		bEqual.setBackground(OPCOLOR);bPlus.setBackground(OPCOLOR);bCE.setBackground(Color.red);
+		bSqrt.setBackground(OPCOLOR);bPow.setBackground(OPCOLOR);b.setBackground(OPCOLOR);
 		
 		//Imposta font dei bottoni operatori
 		bDiv.setFont(new Font("Serif", Font.BOLD, 24));bMult.setFont(new Font("Serif", Font.BOLD, 24));
@@ -137,12 +147,29 @@ public class Calcolatrice extends JFrame implements ActionListener{
 		  			break;
 		
 		case "/": 	if(op.equals("") && !op1.equals("")) {
-						op = s;
+						op1 = s;
 						label.setText(op1 + " " + op);
 					}
-  					break; 			
+  					break;
+		case "CE": 	op1 = ""; op = ""; op2 = "";
+					label.setText("");
+					break;
+					
+		case "sqrt": if(op.equals("") && !op1.equals("")) {
+						op = s;
+					}
+			
+					break;
+  				
+		case ".": 	/*	TODOif(op.equals("") && !op1.equals("")) {
+						op = s;
+						op1 += op;
+						label.setText(op1);
+					}*/
+					break;
+					
 		  			
-		case "=":   if(!op.equals(""))
+		case "=":   if(!op.equals("")) {
 					switch(op) {
 					case "+": 	result = Double.parseDouble(op1) + Double.parseDouble(op2);
 								op1 = Double.toString(result); op = ""; op2 = "";
@@ -171,6 +198,13 @@ public class Calcolatrice extends JFrame implements ActionListener{
 								}
 											
 								break;
+								
+					case "sqrt": 	result = Math.sqrt(Double.parseDouble(op1));
+									op1 = Double.toString(result); 
+									label.setText(op1);
+									op = ""; op2 = "";
+									break;
+					}
 					}
 					break; 	
 					
@@ -178,20 +212,15 @@ public class Calcolatrice extends JFrame implements ActionListener{
 		 *  imposto gli operatori.
 		 */ 
 		default: 
-				if(op1.equals("") && op.equals("") && op2.equals("")) {
+				if(op1.equals("") && op.equals("")) {
 					op1 = s;
 					label.setText(op1);
 				}
-					
-				else if(!op1.equals("") && !op.equals("") && op2.equals("")) {
+				else if(!op1.equals("") && !op.equals("") && op2.equals("") && !s.equals(".")) {
 					op2 = s;
 					label.setText(op1 + " " + op + " " + op2);
-				}
-					
-		}
-		
-
-		
+				}					
+		}	
 			
 	}
 	
