@@ -112,7 +112,7 @@ public class Calcolatrice extends JFrame implements ActionListener {
 		b9.addActionListener(this);bDiv.addActionListener(this);bMult.addActionListener(this);
 		bMinus.addActionListener(this);bPoint.addActionListener(this);bEqual.addActionListener(this);
 		bPlus.addActionListener(this);bCE.addActionListener(this);bSqrt.addActionListener(this);
-		bPow.addActionListener(this);
+		bPow.addActionListener(this);bPercent.addActionListener(this);
 		
 		//Imposta colore bottoni operatori
 		bDiv.setBackground(OPCOLOR);bMult.setBackground(OPCOLOR);bMinus.setBackground(OPCOLOR);
@@ -148,7 +148,7 @@ public class Calcolatrice extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String s = e.getActionCommand();
 		double result = 0.0;
-		//TODO risolvere bug con la virgola
+
 		if(s.equals("CE")) {
 			op1 = ""; op = ""; op2 = "";
 			label.setText("");
@@ -179,8 +179,7 @@ public class Calcolatrice extends JFrame implements ActionListener {
 				else if(!op2.equals("")  && !hasComma(op2)) {
 					op2 += s;
 					label.setText(op1 + " " + op + " " + op2);
-				}
-					
+				}			
 			}
 		else {	
 			op = s;
@@ -221,6 +220,12 @@ public class Calcolatrice extends JFrame implements ActionListener {
 						
 			case "^": 	result = Math.pow(Double.parseDouble(op1), Double.parseDouble(op2));
 						op1 = Double.toString(result);	
+						op = ""; op2 = "";
+						label.setText(op1);
+						break;
+						
+			case "%": 	result = Double.parseDouble(op1) / 100 * Double.parseDouble(op2);
+						op1 = Double.toString(result);
 						op = ""; op2 = "";
 						label.setText(op1);
 						break;
