@@ -3,8 +3,7 @@ package it.unibs.eps.calcolatrice;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.math.BigDecimal;
 
 import javax.swing.*;
 
@@ -188,33 +187,51 @@ public class Calcolatrice extends JFrame implements ActionListener {
 		}
 		
 		if (s.equals("=") && !op.equals("") && !op2.equals("") && !op.equals("sqrt")) {
+			
+			BigDecimal bOp1 = new BigDecimal(op1);
+			BigDecimal bOp2 = new BigDecimal(op2);
+			
 			switch(op) {
 			
-			case "+": 	result = Double.parseDouble(op1) + Double.parseDouble(op2);
+			case "+": 	//result = Double.parseDouble(op1) + Double.parseDouble(op2);
+						result = bOp1.add(bOp2).doubleValue();
 						op1 = Double.toString(result);
 						op = ""; op2 = "";
 						label.setText(op1);
 						break;
 			
-			case "-":  	result = Double.parseDouble(op1) - Double.parseDouble(op2);
+			case "-":  	//result = Double.parseDouble(op1) - Double.parseDouble(op2);
+						result = bOp1.subtract(bOp2).doubleValue();
 						op1 = Double.toString(result);
 						op = ""; op2 = "";
 						label.setText(op1);
 						break;		
 			
-			case "*": 	result = Double.parseDouble(op1) * Double.parseDouble(op2);
+			case "*": 	//result = Double.parseDouble(op1) * Double.parseDouble(op2);
+						result = bOp1.multiply(bOp2).doubleValue();
 						op1 = Double.toString(result);
 						op = ""; op2 = "";
 						label.setText(op1);
 						break;	
 						
-			case "/":   result = Double.parseDouble(op1) / Double.parseDouble(op2);
-						op1 = Double.toString(result);
-						if(op1.equals("Infinity")) {
+			case "/":   //result = Double.parseDouble(op1) / Double.parseDouble(op2);
+						try {
+						result = bOp1.divide(bOp2).doubleValue();
+						label.setText(op1);
+						}
+						catch(ArithmeticException exception) {
 							label.setText(ERROR_DIVIDE_BY_0);
 							op1 = "";
 						}
-						label.setText(op1);
+						op1 = Double.toString(result);
+						/*if(op1.equals("Infinity")) {
+							label.setText(ERROR_DIVIDE_BY_0);
+							op1 = "";
+						}
+						else {
+							label.setText(op1);
+						}*/
+							
 						op = ""; op2 = "";
 						break;	
 						
