@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"it.unibs.eps.calcolatrice","l":"Calcolatrice"},{"p":"it.unibs.eps.calcolatrice","l":"TesterCalcolatrice"}];updateSearchResults();

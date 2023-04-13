@@ -4,23 +4,24 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
-
 import javax.swing.*;
 
-/*
-  	Creare una Calcolatrice utilizzando Java Swing con le operazioni di base: 
-  	addizione, sottrazione, moltiplicazione, divisione, elevamento a potenza 
-  	e percentuale.
-  	Per rendere lo sviluppo più semplice e concentrarsi sulla parte grafica, 
-  	la calcolatrice potrà effettuare un’operazione per volta.
-
-	(Suggerimento) Per eseguire calcoli con numeri molto grandi 
-	(che superano i limiti dei dati primitivi long e double) si 
-	possono usare le classi BigInteger e BigDecimal della libreria java.math. 
-	In questo caso, i calcoli però non si possono usare i normali 
-	operatori aritmetici ma bisogna utilizzare i metodi 
-	add(), subtract(), multiply() e divide()).
-*/
+/**
+ * <p>
+ * Questa classe simula il funzionamento di una calcolatrice,  sia dal punto di vista grafico, che di quello funzionale.
+ * Le operazioni che possono essere svolte sono le seguenti:
+ * <ol>CE: cancella quanto scritto nella casella;</ol>
+ * <ol>+: Dati due numeri a e b, esegue l'operazione a = a+b;</ol>
+ * <ol>-: Dati due numeri a e b, esegue l'operazione a = a-b;</ol>
+ * <ol>*: Dati due numeri a e b, esegue l'operazione a = a*b;</ol>
+ * <ol>/: Dati due numeri a e b, esegue l'operazione a = a/b;</ol>
+ * <ol>sqrt: Dato un numero a, eseque l'operazione a = sqrt(a);</ol>
+ * <ol>^: Dati due numeri a e b, esegue l'operazione a = a^b;</ol>
+ * <ol>%: Dati due numeri a e b, esegue l'operazione a = b% * a</ol>
+ * </p>
+ * @author Davide Leone - 723335
+ *
+ */
 
 public class Calcolatrice extends JFrame implements ActionListener {
 	
@@ -193,29 +194,25 @@ public class Calcolatrice extends JFrame implements ActionListener {
 			
 			switch(op) {
 			
-			case "+": 	//result = Double.parseDouble(op1) + Double.parseDouble(op2);
-						result = bOp1.add(bOp2).doubleValue();
+			case "+": 	result = bOp1.add(bOp2).doubleValue();
 						op1 = Double.toString(result);
 						op = ""; op2 = "";
 						label.setText(op1);
 						break;
 			
-			case "-":  	//result = Double.parseDouble(op1) - Double.parseDouble(op2);
-						result = bOp1.subtract(bOp2).doubleValue();
+			case "-":  	result = bOp1.subtract(bOp2).doubleValue();
 						op1 = Double.toString(result);
 						op = ""; op2 = "";
 						label.setText(op1);
 						break;		
 			
-			case "*": 	//result = Double.parseDouble(op1) * Double.parseDouble(op2);
-						result = bOp1.multiply(bOp2).doubleValue();
+			case "*": 	result = bOp1.multiply(bOp2).doubleValue();
 						op1 = Double.toString(result);
 						op = ""; op2 = "";
 						label.setText(op1);
 						break;	
 						
-			case "/":   //result = Double.parseDouble(op1) / Double.parseDouble(op2);
-						try {
+			case "/":   try {
 						result = bOp1.divide(bOp2).doubleValue();
 						label.setText(op1);
 						}
@@ -224,13 +221,6 @@ public class Calcolatrice extends JFrame implements ActionListener {
 							op1 = "";
 						}
 						op1 = Double.toString(result);
-						/*if(op1.equals("Infinity")) {
-							label.setText(ERROR_DIVIDE_BY_0);
-							op1 = "";
-						}
-						else {
-							label.setText(op1);
-						}*/
 							
 						op = ""; op2 = "";
 						break;	
@@ -252,7 +242,13 @@ public class Calcolatrice extends JFrame implements ActionListener {
 	}
 	
 
-
+	/**
+	 * <p>
+	 * Verifica se il parametro stringa e' un numero.
+	 * </p>
+	 * @param s
+	 * @return True se il parametro stringa e' convertivile in un double, False altrimenti.
+	 */
 	private boolean isANumber(String s) {
 		try {
 			Double.parseDouble(s);
@@ -263,6 +259,13 @@ public class Calcolatrice extends JFrame implements ActionListener {
 		}
 	}
 	
+	/**
+	 * <p>
+	 * Verifica se il parametro stringa contiene il carattere punto.
+	 * </p>
+	 * @param s
+	 * @return True se il parametro stringa contiene il carattere punto, False altrimenti.
+	 */
 	private boolean hasComma(String s) {
 		for(int i = 0; i < s.length(); i++)
 			if(s.charAt(i) == '.')
